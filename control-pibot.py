@@ -1,45 +1,36 @@
 # control-pibot.py
-# If your pi's hostname is something different than "mil-mascaras", see comments
-# below the lines labeled *** IMPORTANT *** below.
+# *** IMPORTANT ***
+# serverAddress is your pi's host name. Be sure to replace hostname, below
+# with the hostname that you use to log into your Pi.
+# If you are running this code from the BostonCollege network, remove .local below
+# but REMEMBER if you run this on another Wi-Fi network (e.g. at home), you'll need
+# to modify this code to add .local again
+serverAddress = "hostname.local"
 
 # *** IMPORTANT ***
-# The commands below assume your pi's hostname is mil-mascaras. If you have a
-# different name, then use that name in place of mil-mascaras in the mosquitto_pub
+# The commands below assume your pi's hostname is hostname. If you have a
+# different name, then use that name in place of hostname in the mosquitto_pub
 # commands, below.
 # once running, you can test with the shell commands:
 # To play any of the numbered sounds (substitute a diffrent number for "1" for a different sound:
-# mosquitto_pub -h mil-mascaras.local -t "pibot/move" -m "1"
+# mosquitto_pub -h hostname.local -t "pibot/move" -m "1"
 # To start the robot:
-# mosquitto_pub -h mil-mascaras.local -t "pibot/move" -m "forward"
+# mosquitto_pub -h hostname.local -t "pibot/move" -m "forward"
 # To stop the robot:
-# mosquitto_pub -h mil-mascaras.local -t "pibot/move" -m "stop"
+# mosquitto_pub -h hostname.local -t "pibot/move" -m "stop"
 
 import pygame
 import time
 import paho.mqtt.client as mqtt
-#from adafruit_motorkit import MotorKit
-# if you're using an Adafruit Crickit hat, uncomment the line below and comment out the statement above:
+# This code assumes you are using an adafruit crickit board to power your Pi
 from adafruit_crickit import crickit
-# NOTE: The line below is needed if you're using the Waveshare Motor Driver Hat
-# comment out this line if you're using a Crickit
-# kit = MotorKit(0x40)
-# Also, only if using the Waveshare Motor Driver Hat, be sure you've installed
-# and modified CircuitPython files, in particular the file at:
-# /usr/local/lib/python3.5/dist-packages/adafruit_motorkit.py
-# as described in the tutorial at:
-# https://gallaugher.com/mil-mascaras
 
-# uncomment lines below if you're using a Crickit
-# then replace any reference to kit.motor1 with motor_1 and kit.motor2 with motor_2
 motor_1 = crickit.dc_motor_1
 motor_2 = crickit.dc_motor_2
 
+# don't modify the name below - this is correct
 clientName = "PiBot"
-# *** IMPORTANT ***
-# This is your pi's host name. If your name is something different than
-# mil-mascaras, then be sure to change it, here - make it the name of your Pi
-#serverAddress = "profgpi"
-serverAddress = "localhost"
+
 mqttClient = mqtt.Client(clientName)
 # Flag to indicate subscribe confirmation hasn't been printed yet.
 didPrintSubscribeMessage = False
@@ -61,7 +52,7 @@ slowTurnBy = 0.5
 # folder with a sound named startup.mp3
 fileLocation = "/home/pi/robot_sounds/"
 pygame.mixer.init()
-pygame.mixer.music.load(fileLocation + "wanna-build-me.mp3")
+pygame.mixer.music.load(fileLocation + "startup.wav")
 speakerVolume = ".50" # initially sets speaker at 50%
 pygame.mixer.music.set_volume(float(speakerVolume))
 pygame.mixer.music.play()
