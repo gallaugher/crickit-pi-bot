@@ -14,7 +14,7 @@ After=mosquitto.service
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/pi/control-pibot.py
+ExecStart=/usr/bin/python /home/pi/control-pibot.py
 Restart=always
 [Install]
 WantedBy=multi-user.target
