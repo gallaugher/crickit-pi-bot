@@ -1,23 +1,26 @@
 # control-pibot.py
-# *** IMPORTANT ***
-# serverAddress is your pi's host name. Be sure to replace hostname, below
-# with the hostname that you use to log into your Pi.
-# If you are running this code from the BostonCollege network, remove .local below
-# but REMEMBER if you run this on another Wi-Fi network (e.g. at home), you'll need
-# to modify this code to add .local again
-serverAddress = "hostname.local"
+# Written by Prof. John Gallaugher. For build videos see:
+# https://YouTube.com/profgallaugher
+# serverAddress, below is your pi's host name. But, since our Mosquitto broker and
+# this program (which acts as the subscriber) are on the same Raspberry Pi
+# we can simply use "localhost" as the server name.
+serverAddress = "localhost"
 
 # *** IMPORTANT ***
-# The commands below assume your pi's hostname is hostname. If you have a
-# different name, then use that name in place of hostname in the mosquitto_pub
-# commands, below.
-# once running, you can test with the shell commands:
+# The commands below also substitute localhost with your Pi's hostname.
+# This works when you've opened a Terminal & connected to your Pi.
+# If you're in a class with other students, you can substitue "localhost"
+# with the name of their py (e.g. hostname.local if they're on a standard
+# Wi-Fi network, or just "hostname" if they're on a network like the Boston
+# College campus network, where "hostname" is the name of your friend's Pi.
+#
+# Once this code is running, you can test with the shell commands:
 # To play any of the numbered sounds (substitute a diffrent number for "1" for a different sound:
-# mosquitto_pub -h hostname.local -t "pibot/move" -m "1"
+# mosquitto_pub -h localhost -t "pibot/move" -m "1"
 # To start the robot:
-# mosquitto_pub -h hostname.local -t "pibot/move" -m "forward"
+# mosquitto_pub -h localhost -t "pibot/move" -m "forward"
 # To stop the robot:
-# mosquitto_pub -h hostname.local -t "pibot/move" -m "stop"
+# mosquitto_pub -h localhost -t "pibot/move" -m "stop"
 
 import pygame
 import time
