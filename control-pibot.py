@@ -1,6 +1,10 @@
 # control-pibot.py
 # Written by Prof. John Gallaugher. For build videos see:
 # https://YouTube.com/profgallaugher
+# You can control this subscriber program with an iOS app named
+# Mil Mascaras, which you can download for free from the iOS App Store at:
+# https://apps.apple.com/us/app/mil-mascaras/id1550345112?platform=iphone
+#
 # serverAddress, below is your pi's host name. But, since our Mosquitto broker and
 # this program (which acts as the subscriber) are on the same Raspberry Pi
 # we can simply use "localhost" as the server name.
